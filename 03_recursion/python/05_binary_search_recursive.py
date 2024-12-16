@@ -1,15 +1,21 @@
 def binary_search(arr, target):
-    if not arr:
-        return -1        
-    if len(arr) == 1 and arr[0] == target:
-        return arr[0]
-    if len(arr) == 1 and arr[0] != target:
-        return -1
-    low = 0         
-    high = len(arr) - 1    
-    mid = (low + high) // 2
+    if len(arr) == 0:
+        return None
 
-    if arr[mid] > target:
+    mid = len(arr) // 2
+
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] > target:
         return binary_search(arr[:mid], target)
     else:
-        return binary_search(arr[mid+1:], target)
+        recursive_response = binary_search(arr[(mid + 1) :], target)
+        return (
+            (mid + 1) + recursive_response
+            if recursive_response is not None
+            else recursive_response
+        )
+
+
+print(binary_search([6, 7, 8, 9, 10], 8))
+print(binary_search([6, 7, 8, 9, 10], 6))

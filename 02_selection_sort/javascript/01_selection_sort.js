@@ -1,36 +1,39 @@
 'use strict';
-// Selection Sort - O(n^2)
-// Parameter:
-//  1. random array
-
-// 1. Finds the smallest value in an array
-function findSmallestIndex(array) {
-  var smallestElement = array[0]; // Stores the smallest value
-  var smallestIndex = 0; // Stores the index of the smallest value
-
-  for (var i = 1; i < array.length; i++) {
-    if (array[i] < smallestElement) {
-      smallestElement = array[i];
-      smallestIndex = i;
-    }
+/**
+ * Finds the index of the element with the smallest value in the array
+ * @param {Array} array Source array
+ * @returns {number} Index of the element with the smallest value
+ */
+const findSmallest = (arr) => {
+  let [smallestElement] = arr;
+  let smallestIndex = 0;
+  for (let i = 1; i < arr.length; i++) {
+    const el = arr[i];
+    if (el >= smallestElement) continue;
+    smallestElement = el;
+    smallestIndex = i;
   }
-
   return smallestIndex;
-}
+};
 
-// 2. Sort the array
-function selectionSort(array) {
-  var sortedArray = [];
-  var length = array.length;
-
-  for (var i = 0; i < length; i++) {
-    // Finds the smallest element in the array 
-    var smallestIndex = findSmallestIndex(array);
-    // Adds the smallest element to new array
-    sortedArray.push(array.splice(smallestIndex, 1)[0]);
+/**
+ * Sort array by increment
+ * @param {Array} array Source array
+ * @returns {Array} New sorted array
+ */
+const selectionSort = (arr) => {
+  const size = arr.length;
+  const result = new Array(size).fill(0);
+  for (let i = 0; i < size; i++) {
+    const smallestIndex = findSmallest(arr);
+    const [smallestElement] = arr.splice(smallestIndex, 1);
+    result[i] = smallestElement;
   }
+  return result;
+};
 
-  return sortedArray;
-}
+const sourceArray = [5, 3, 6, 2, 10];
+const sortedArray = selectionSort(sourceArray);
 
-console.log(selectionSort([5, 3, 6, 2, 10])); // [2, 3, 5, 6, 10]
+console.log('Source array - ', sourceArray); // [5, 3, 6, 2, 10]
+console.log('New sorted array - ', sourtedArray); // [2, 3, 5, 6, 10]
